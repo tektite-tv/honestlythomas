@@ -1,5 +1,0 @@
-Terminal Log
-
-This is a sample plain text post.
-
-Everything inside /posts is turned into a blog entry if it ends in .md, .txt, or .html.
