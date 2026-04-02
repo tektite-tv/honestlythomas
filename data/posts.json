@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-04-02T07:05:40.617222+00:00",
+  "count": 3,
+  "posts": [
+    {
+      "title": "Monochrome HTML Sample",
+      "slug": "monochrome-sample",
+      "date": "2026-04-02T07:05:37.677057+00:00",
+      "ext": "html",
+      "source_path": "posts/monochrome-sample.html",
+      "excerpt": "Monochrome HTML Sample This is a sample HTML post. The builder extracts the body content and displays it as a post. Links , lists, images, and tables can live in your raw HTML posts.",
+      "text_content": "Monochrome HTML Sample This is a sample HTML post. The builder extracts the body content and displays it as a post. Links , lists, images, and tables can live in your raw HTML posts.",
+      "content_html": "<h1>Monochrome HTML Sample</h1>\n  <p>This is a sample HTML post. The builder extracts the body content and displays it as a post.</p>\n  <p><a href=\"https://example.com\">Links</a>, lists, images, and tables can live in your raw HTML posts.</p>",
+      "tags": []
+    },
+    {
+      "title": "Terminal Log",
+      "slug": "terminal-log",
+      "date": "2026-04-02T07:05:37.658829+00:00",
+      "ext": "txt",
+      "source_path": "posts/terminal-log.txt",
+      "excerpt": "Terminal Log This is a sample plain text post. Everything inside /posts is turned into a blog entry if it ends in .md, .txt, or .html.",
+      "text_content": "Terminal Log This is a sample plain text post. Everything inside /posts is turned into a blog entry if it ends in .md, .txt, or .html.",
+      "content_html": "<p>Terminal Log</p>\n<p>This is a sample plain text post.</p>\n<p>Everything inside /posts is turned into a blog entry if it ends in .md, .txt, or .html.</p>",
+      "tags": []
+    },
+    {
+      "title": "Welcome to Honestly Thomas",
+      "slug": "2026-04-02-welcome",
+      "date": "2026-04-02T07:05:37.640094+00:00",
+      "ext": "md",
+      "source_path": "posts/2026-04-02-welcome.md",
+      "excerpt": "Welcome to Honestly Thomas This is a sample markdown post. Add more posts in /posts Push to GitHub Let the workflow rebuild /data/posts.json You can search this post with ?q=welcome .",
+      "text_content": "Welcome to Honestly Thomas This is a sample markdown post. Add more posts in /posts Push to GitHub Let the workflow rebuild /data/posts.json You can search this post with ?q=welcome .",
+      "content_html": "<h1>Welcome to Honestly Thomas</h1>\n<p>This is a sample markdown post.</p>\n<ul>\n<li>Add more posts in <code>/posts</code></li>\n<li>Push to GitHub</li>\n<li>Let the workflow rebuild <code>/data/posts.json</code></li>\n</ul>\n<p>You can search this post with <code>?q=welcome</code>.</p>",
+      "tags": []
+    }
+  ]
+}
