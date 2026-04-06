@@ -106,10 +106,13 @@
       z-index: 2;
       width: 100%;
       max-width: 980px;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: space-between;
       padding-top: 28px;
+      padding-bottom: 28px;
       text-align: center;
     }
 
@@ -217,6 +220,30 @@
         0 0 26px rgba(150,70,255,0.3);
     }
 
+    .footer-link {
+      display: inline-block;
+      margin: 18px 20px 0;
+      text-decoration: none;
+      font-family: "Cooper Std", "Cooper Black", "Georgia", serif;
+      font-size: clamp(1rem, 1.5vw, 1.35rem);
+      line-height: 1.25;
+      color: #8a3cff;
+      -webkit-text-stroke: 1px #77ff94;
+      text-shadow:
+        0 0 6px rgba(119,255,148,0.25),
+        0 0 14px rgba(138,60,255,0.28);
+      transition: transform 180ms ease, text-shadow 180ms ease, filter 180ms ease;
+    }
+
+    .footer-link:hover,
+    .footer-link:focus-visible {
+      transform: scale(1.03);
+      text-shadow:
+        0 0 8px rgba(119,255,148,0.35),
+        0 0 18px rgba(138,60,255,0.35);
+      filter: brightness(1.05);
+    }
+
     @keyframes waterfallSlide {
       0%   { transform: translateY(-28px); }
       100% { transform: translateY(28px); }
@@ -237,9 +264,17 @@
       100% { color: #d784ff; }
     }
 
+    @media (min-width: 641px) {
+      h1 {
+        font-size: clamp(1.8rem, 3.2vw, 3rem);
+      }
+    }
+
     @media (max-width: 640px) {
       .container {
         padding-top: 22px;
+        padding-bottom: 22px;
+        justify-content: flex-start;
       }
 
       .hero-link {
@@ -249,6 +284,10 @@
       .face-wrap {
         width: min(64vw, 240px);
       }
+
+      .footer-link {
+        display: none;
+      }
     }
   </style>
 </head>
@@ -257,14 +296,18 @@
   <div class="vignette"></div>
 
   <main class="container">
-    <h1>Honestly, Thomas?</h1>
+    <div>
+      <h1>Honestly, Thomas?</h1>
 
-    <a class="hero-link" href="https://youtube.com/@Honestly_Thomas" target="_blank" rel="noopener noreferrer" aria-label="Visit Honestly Thomas on YouTube">
-      <div class="face-wrap">
-        <img class="face" src="/media/images/pngs/face.png" alt="Honestly Thomas portrait" />
-      </div>
-      <div class="cta">You Make Videos?<br>On <img src="/media/images/pngs/oldtube.png"> ???<br>Sub me up!</div>
-    </a>
+      <a class="hero-link" href="https://youtube.com/@Honestly_Thomas" target="_blank" rel="noopener noreferrer" aria-label="Visit Honestly Thomas on YouTube">
+        <div class="face-wrap">
+          <img class="face" src="/media/images/pngs/face.png" alt="Honestly Thomas portrait" />
+        </div>
+        <div class="cta">You Make Videos?<br>On <img src="/media/images/pngs/oldtube.png"> ???<br>Sub me up!</div>
+      </a>
+    </div>
+
+    <a class="footer-link" href="https://theinternetisdead.org" target="_blank" rel="noopener noreferrer">Yeah and I also make websites like theinternetisdead.org</a>
   </main>
 
   <script>
