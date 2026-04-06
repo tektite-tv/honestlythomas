@@ -225,11 +225,17 @@
       margin: 18px 20px 0;
       text-decoration: none;
       font-family: "Cooper Std", "Cooper Black", "Georgia", serif;
-      font-size: clamp(1rem, 1.5vw, 1.35rem);
-      line-height: 1.25;
+      font-size: clamp(1.2rem, 1.9vw, 1.7rem);
+      font-weight: 900;
+      line-height: 1.2;
       color: #8a3cff;
       -webkit-text-stroke: 1px #77ff94;
+      paint-order: stroke fill;
       text-shadow:
+        1px 0 0 #77ff94,
+        -1px 0 0 #77ff94,
+        0 1px 0 #77ff94,
+        0 -1px 0 #77ff94,
         0 0 6px rgba(119,255,148,0.25),
         0 0 14px rgba(138,60,255,0.28);
       transition: transform 180ms ease, text-shadow 180ms ease, filter 180ms ease;
