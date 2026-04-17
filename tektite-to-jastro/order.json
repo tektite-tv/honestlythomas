@@ -1,0 +1,44 @@
+{
+  "slides": [
+    {
+      "id": "#1",
+      "desktopImage": "images_16x9/original_16x9.jpg",
+      "mobileImage": "images_9x16/original_9x16.jpg"
+    },
+    {
+      "id": "#2",
+      "desktopImage": "images_16x9/thomas-honestly_16x9.png",
+      "mobileImage": "images_9x16/thomas-honestly_9x16.png"
+    },
+    {
+      "id": "#3",
+      "desktopImage": "images_16x9/thomas-sorry_16x9.png",
+      "mobileImage": "images_9x16/thomas-sorry9x16.png"
+    },
+    {
+      "id": "#4",
+      "desktopImage": "images_16x9/thomas-transcends_16x9.png",
+      "mobileImage": "images_9x16/thomas-transcends_9x16.png"
+    },
+    {
+      "id": "#5",
+      "desktopImage": "images_16x9/bracebridge_16x9.png",
+      "mobileImage": "images_9x16/bracebridge_9x16.png"
+    },
+    {
+      "id": "#6",
+      "desktopImage": "images_16x9/bracebridge-glitch_16x9.png",
+      "mobileImage": "images_9x16/bracebridge-glitch_9x16.png"
+    },
+    {
+      "id": "#7",
+      "desktopImage": "images_16x9/bracebridge-globe_16x9.png",
+      "mobileImage": "images_9x16/bracebridge-globe_9x16.png"
+    },
+    {
+      "id": "#8",
+      "desktopImage": "images_16x9/hopefully_16x9.png",
+      "mobileImage": "images_9x16/hopefully_9x16.png"
+    }
+  ]
+}

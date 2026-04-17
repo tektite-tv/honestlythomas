@@ -11,6 +11,7 @@
       --panel-radius: 28px;
       --shadow: 0 28px 80px rgba(0, 0, 0, 0.45);
       --overlay: rgba(8, 10, 18, 0.52);
+      --transition-ms: 520ms;
     }
 
     * {
@@ -55,7 +56,6 @@
       filter: blur(32px) saturate(1.1);
       transform: scale(1.08);
       opacity: 0;
-      transition: opacity 280ms ease;
     }
 
     .backdrop.visible,
@@ -110,7 +110,6 @@
       height: 100%;
       object-fit: cover;
       opacity: 0;
-      transition: opacity 260ms ease;
       background: rgba(0, 0, 0, 0.22);
     }
 
@@ -119,63 +118,163 @@
       opacity: 1;
     }
 
-    .chrome {
+    .app.is-glitching .backdrop.visible {
+      animation: backdrop-glitch-out var(--transition-ms) ease both;
+    }
+
+    .app.is-glitching .backdrop-next.visible {
+      animation: backdrop-glitch-in var(--transition-ms) ease both;
+    }
+
+    .stage.is-glitching .slide.visible {
+      animation: glitch-out var(--transition-ms) ease both;
+    }
+
+    .stage.is-glitching .slide-next.visible {
+      animation: glitch-in var(--transition-ms) ease both;
+    }
+
+    @keyframes glitch-out {
+      0% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) scale(1);
+        filter: none;
+        clip-path: inset(0 0 0 0);
+      }
+      16% {
+        transform: translate3d(-18px, 0, 0) scale(1.02);
+        filter: contrast(1.35) saturate(1.2) hue-rotate(-18deg);
+      }
+      17% {
+        transform: translate3d(14px, 0, 0) scale(1.02);
+      }
+      34% {
+        opacity: 0.95;
+        clip-path: inset(0 0 0 0);
+      }
+      35% {
+        clip-path: inset(8% 0 46% 0);
+      }
+      52% {
+        opacity: 0.7;
+        transform: translate3d(-26px, 0, 0) scale(1.04);
+        filter: contrast(1.55) saturate(1.45) hue-rotate(-32deg);
+      }
+      53% {
+        transform: translate3d(22px, 0, 0) scale(1.04);
+        clip-path: inset(46% 0 14% 0);
+      }
+      78% {
+        opacity: 0.3;
+        transform: translate3d(-8px, 0, 0) scale(1.06);
+        filter: contrast(1.8) brightness(0.8) saturate(1.6);
+      }
+      100% {
+        opacity: 0;
+        transform: translate3d(0, 0, 0) scale(1.08);
+        filter: contrast(1.95) brightness(0.75) saturate(1.7);
+        clip-path: inset(68% 0 0 0);
+      }
+    }
+
+    @keyframes glitch-in {
+      0% {
+        opacity: 0;
+        transform: translate3d(28px, 0, 0) scale(1.08);
+        filter: contrast(1.8) brightness(1.25) saturate(1.7) hue-rotate(72deg);
+        clip-path: inset(72% 0 0 0);
+      }
+      18% {
+        opacity: 0.45;
+        transform: translate3d(-20px, 0, 0) scale(1.05);
+        clip-path: inset(12% 0 44% 0);
+      }
+      19% {
+        transform: translate3d(16px, 0, 0) scale(1.05);
+      }
+      40% {
+        opacity: 0.78;
+        transform: translate3d(0, 0, 0) scale(1.03);
+        filter: contrast(1.45) brightness(1.12) saturate(1.35) hue-rotate(18deg);
+        clip-path: inset(0 0 0 0);
+      }
+      62% {
+        opacity: 0.88;
+        transform: translate3d(-8px, 0, 0) scale(1.015);
+        filter: contrast(1.25) brightness(1.06) saturate(1.18);
+      }
+      63% {
+        transform: translate3d(6px, 0, 0) scale(1.015);
+      }
+      100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) scale(1);
+        filter: none;
+        clip-path: inset(0 0 0 0);
+      }
+    }
+
+    @keyframes backdrop-glitch-out {
+      0% {
+        opacity: 1;
+        transform: scale(1.08);
+        filter: blur(32px) saturate(1.1);
+      }
+      45% {
+        opacity: 0.7;
+        transform: scale(1.12) translate3d(-1%, 0, 0);
+        filter: blur(34px) saturate(1.45) hue-rotate(-22deg);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(1.16);
+        filter: blur(38px) saturate(1.6) brightness(0.78);
+      }
+    }
+
+    @keyframes backdrop-glitch-in {
+      0% {
+        opacity: 0;
+        transform: scale(1.16);
+        filter: blur(38px) saturate(1.65) hue-rotate(48deg);
+      }
+      45% {
+        opacity: 0.72;
+        transform: scale(1.12) translate3d(1%, 0, 0);
+        filter: blur(34px) saturate(1.35) hue-rotate(14deg);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1.08);
+        filter: blur(32px) saturate(1.1);
+      }
+    }
+
+    .slide-index {
       position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 20px;
-      background:
-        linear-gradient(180deg, rgba(0, 0, 0, 0.42) 0%, rgba(0, 0, 0, 0.02) 30%, rgba(0, 0, 0, 0.46) 100%);
+      top: 18px;
+      right: 20px;
+      z-index: 4;
+      margin: 0;
+      padding: 5px;
+      border: 3px solid #ffffff;
+      border-radius: 10px;
+      background: #000000;
+      color: limegreen;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: 0.04em;
+      transform: scale(1.2);
+      transform-origin: top right;
+      text-shadow:
+        -1px -1px 0 #6d28d9,
+        1px -1px 0 #6d28d9,
+        -1px 1px 0 #6d28d9,
+        1px 1px 0 #6d28d9,
+        0 0 12px rgba(109, 40, 217, 0.45);
       pointer-events: none;
-    }
-
-    .topline,
-    .bottomline {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      min-height: 40px;
-      padding: 10px 14px;
-      border-radius: 999px;
-      background: var(--overlay);
-      backdrop-filter: blur(14px);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-      font-size: 0.95rem;
-      letter-spacing: 0.02em;
-    }
-
-    .title {
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      font-size: 0.75rem;
-      opacity: 0.82;
-    }
-
-    .count {
-      font-weight: 700;
-      white-space: nowrap;
-    }
-
-    .caption {
-      font-size: 1rem;
-      font-weight: 700;
-      max-width: min(62ch, 70%);
-      line-height: 1.2;
-    }
-
-    .hint {
-      opacity: 0.86;
-      white-space: nowrap;
     }
 
     .status {
@@ -214,6 +313,27 @@
       display: none;
     }
 
+    @media (min-width: 769px) {
+      .viewer {
+        padding: 0;
+      }
+
+      .stage {
+        width: 100vw;
+        height: 100vh;
+        max-width: none;
+        aspect-ratio: auto;
+        border-radius: 0;
+        box-shadow: none;
+        background: #000000;
+      }
+
+      .slide,
+      .slide-next {
+        object-fit: fill;
+      }
+    }
+
     @media (max-width: 768px) {
       :root {
         --panel-width: 100vw;
@@ -232,22 +352,9 @@
         aspect-ratio: auto;
       }
 
-      .chrome {
-        padding: 18px 14px 24px;
-      }
-
-      .topline,
-      .bottomline {
-        flex-direction: column;
-        align-items: stretch;
-      }
-
-      .caption {
-        max-width: none;
-      }
-
-      .hint {
-        text-align: center;
+      .slide-index {
+        top: 16px;
+        right: 14px;
       }
     }
   </style>
@@ -262,20 +369,7 @@
       <button class="stage" id="stage" type="button" aria-label="Advance slideshow">
         <img class="slide visible" id="slide" alt="" />
         <img class="slide-next" id="slideNext" alt="" />
-
-        <div class="chrome">
-          <div class="topline">
-            <div class="pill">
-              <span class="title" id="modeLabel">Loading</span>
-            </div>
-            <div class="pill count" id="countLabel">0 / 0</div>
-          </div>
-
-          <div class="bottomline">
-            <div class="pill caption" id="caption">Loading images...</div>
-            <div class="pill hint">Tap or click anywhere to advance</div>
-          </div>
-        </div>
+        <p class="slide-index" id="slideIndex" aria-hidden="true">#1</p>
       </button>
     </main>
 
@@ -289,29 +383,31 @@
 
   <script>
     const MOBILE_QUERY = window.matchMedia("(max-width: 768px)");
-    const SLIDESHOW_INDEX_PATH = "/tektite-to-jastro/index.html";
+    const ORDER_URL = "/tektite-to-jastro/order.json";
+    const TRANSITION_MS = 520;
     const SOURCES = {
       mobile: {
-        label: "Mobile 9:16",
         url: "/tektite-to-jastro/images_9x16/index.json"
       },
       desktop: {
-        label: "Desktop 16:9",
         url: "/tektite-to-jastro/images_16x9/index.json"
       }
     };
 
     const stage = document.getElementById("stage");
+    const app = document.querySelector(".app");
     const slide = document.getElementById("slide");
     const slideNext = document.getElementById("slideNext");
     const backdrop = document.getElementById("backdrop");
     const backdropNext = document.getElementById("backdropNext");
-    const countLabel = document.getElementById("countLabel");
-    const caption = document.getElementById("caption");
-    const modeLabel = document.getElementById("modeLabel");
+    const slideIndex = document.getElementById("slideIndex");
     const status = document.getElementById("status");
     const statusTitle = document.getElementById("statusTitle");
     const statusText = document.getElementById("statusText");
+
+    if (window.location.search) {
+      window.history.replaceState(null, "", window.location.pathname);
+    }
 
     let activeMode = "";
     let slides = [];
@@ -328,51 +424,18 @@
 
     function normalizeSlidePath(value) {
       return value
+        .trim()
         .replace(/^\/+/, "")
         .replace(/^tektite-to-jastro\/+/, "");
     }
 
-    function toSlideUrl(frame) {
-      const nextUrl = new URL(SLIDESHOW_INDEX_PATH, window.location.origin);
-      nextUrl.searchParams.set("slide", normalizeSlidePath(frame.relativePath));
-      return nextUrl.pathname + nextUrl.search;
-    }
-
-    function getRequestedSlidePath() {
-      const currentUrl = new URL(window.location.href);
-      const requestedSlide = currentUrl.searchParams.get("slide");
-      if (!requestedSlide) {
+    function toRepoRelativePath(value) {
+      const normalizedPath = normalizeSlidePath(String(value || ""));
+      if (!normalizedPath) {
         return "";
       }
 
-      return normalizeSlidePath(requestedSlide);
-    }
-
-    function getInitialSlideIndex(loadedSlides) {
-      const requestedSlide = getRequestedSlidePath();
-      if (!requestedSlide) {
-        return 0;
-      }
-
-      const exactMatchIndex = loadedSlides.findIndex((frame) => {
-        return normalizeSlidePath(frame.relativePath) === requestedSlide;
-      });
-
-      if (exactMatchIndex >= 0) {
-        return exactMatchIndex;
-      }
-
-      const requestedFileName = requestedSlide.split("/").pop();
-      const nameMatchIndex = loadedSlides.findIndex((frame) => frame.name === requestedFileName);
-      return nameMatchIndex >= 0 ? nameMatchIndex : 0;
-    }
-
-    function syncBrowserUrl(frame) {
-      const nextUrl = toSlideUrl(frame);
-      const currentUrl = window.location.pathname + window.location.search;
-      if (currentUrl !== nextUrl) {
-        window.history.replaceState({ image: frame.name }, "", nextUrl);
-      }
+      return "tektite-to-jastro/" + normalizedPath;
     }
 
     function preloadImage(src) {
@@ -384,7 +447,41 @@
       });
     }
 
+    function buildOrderedSlides(mode, entries) {
+      const imageKey = mode === "mobile" ? "mobileImage" : "desktopImage";
+
+      return entries
+        .map((entry) => {
+          const relativePath = toRepoRelativePath(entry && entry[imageKey]);
+          if (!relativePath) {
+            return null;
+          }
+
+          return {
+            name: relativePath.split("/").pop(),
+            relativePath
+          };
+        })
+        .filter(Boolean);
+    }
+
+    async function fetchOrderedSlides(mode) {
+      const response = await fetch(ORDER_URL, { cache: "no-store" });
+      if (!response.ok) {
+        return [];
+      }
+
+      const payload = await response.json();
+      const entries = Array.isArray(payload.slides) ? payload.slides : [];
+      return buildOrderedSlides(mode, entries);
+    }
+
     async function fetchSlides(mode) {
+      const orderedSlides = await fetchOrderedSlides(mode);
+      if (orderedSlides.length) {
+        return orderedSlides;
+      }
+
       const response = await fetch(SOURCES[mode].url, { cache: "no-store" });
       if (!response.ok) {
         throw new Error("Unable to load " + SOURCES[mode].url);
@@ -407,10 +504,7 @@
       slide.classList.add("visible");
       backdrop.style.backgroundImage = 'url("' + assetUrl + '")';
       backdrop.classList.add("visible");
-      caption.textContent = frame.name;
-      countLabel.textContent = (index + 1) + " / " + slides.length;
-      modeLabel.textContent = SOURCES[activeMode].label;
-      syncBrowserUrl(frame);
+      slideIndex.textContent = "#" + (index + 1);
     }
 
     async function showInitialSlide() {
@@ -442,18 +536,25 @@
       backdropNext.style.backgroundImage = 'url("' + assetUrl + '")';
 
       requestAnimationFrame(() => {
+        stage.classList.remove("is-glitching");
+        app.classList.remove("is-glitching");
+        void stage.offsetWidth;
         slideNext.classList.add("visible");
         backdropNext.classList.add("visible");
+        stage.classList.add("is-glitching");
+        app.classList.add("is-glitching");
       });
 
       window.setTimeout(() => {
         index = nextIndex;
         applyFrame(frame);
 
+        stage.classList.remove("is-glitching");
+        app.classList.remove("is-glitching");
         slideNext.classList.remove("visible");
         backdropNext.classList.remove("visible");
         isTransitioning = false;
-      }, 260);
+      }, TRANSITION_MS);
     }
 
     async function loadMode(mode) {
@@ -474,7 +575,6 @@
         }
 
         slides = loadedSlides;
-        index = getInitialSlideIndex(loadedSlides);
         await showInitialSlide();
         updateStatus("Ready", "Slideshow loaded.", false);
       } catch (error) {
