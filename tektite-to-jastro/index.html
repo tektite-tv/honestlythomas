@@ -289,7 +289,7 @@
 
   <script>
     const MOBILE_QUERY = window.matchMedia("(max-width: 768px)");
-    const SLIDESHOW_BASE_PATH = "/tektite-to-jastro/";
+    const SLIDESHOW_INDEX_PATH = "/tektite-to-jastro/index.html";
     const SOURCES = {
       mobile: {
         label: "Mobile 9:16",
@@ -326,13 +326,51 @@
       return "/" + relativePath.replace(/^\/+/, "");
     }
 
-    function toSlideUrl(fileName) {
-      return SLIDESHOW_BASE_PATH + encodeURIComponent(fileName);
+    function normalizeSlidePath(value) {
+      return value
+        .replace(/^\/+/, "")
+        .replace(/^tektite-to-jastro\/+/, "");
+    }
+
+    function toSlideUrl(frame) {
+      const nextUrl = new URL(SLIDESHOW_INDEX_PATH, window.location.origin);
+      nextUrl.searchParams.set("slide", normalizeSlidePath(frame.relativePath));
+      return nextUrl.pathname + nextUrl.search;
+    }
+
+    function getRequestedSlidePath() {
+      const currentUrl = new URL(window.location.href);
+      const requestedSlide = currentUrl.searchParams.get("slide");
+      if (!requestedSlide) {
+        return "";
+      }
+
+      return normalizeSlidePath(requestedSlide);
+    }
+
+    function getInitialSlideIndex(loadedSlides) {
+      const requestedSlide = getRequestedSlidePath();
+      if (!requestedSlide) {
+        return 0;
+      }
+
+      const exactMatchIndex = loadedSlides.findIndex((frame) => {
+        return normalizeSlidePath(frame.relativePath) === requestedSlide;
+      });
+
+      if (exactMatchIndex >= 0) {
+        return exactMatchIndex;
+      }
+
+      const requestedFileName = requestedSlide.split("/").pop();
+      const nameMatchIndex = loadedSlides.findIndex((frame) => frame.name === requestedFileName);
+      return nameMatchIndex >= 0 ? nameMatchIndex : 0;
     }
 
     function syncBrowserUrl(frame) {
-      const nextUrl = toSlideUrl(frame.name);
-      if (window.location.pathname !== nextUrl) {
+      const nextUrl = toSlideUrl(frame);
+      const currentUrl = window.location.pathname + window.location.search;
+      if (currentUrl !== nextUrl) {
         window.history.replaceState({ image: frame.name }, "", nextUrl);
       }
     }
@@ -436,6 +474,7 @@
         }
 
         slides = loadedSlides;
+        index = getInitialSlideIndex(loadedSlides);
         await showInitialSlide();
         updateStatus("Ready", "Slideshow loaded.", false);
       } catch (error) {
