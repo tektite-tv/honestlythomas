@@ -16,7 +16,7 @@ This folder groups together the files and subdirectories listed below.
 - `bracebridge-globe.png` - PNG image, 2.9 MB.
 - `bracebridge.png` - PNG image, 9.1 MB.
 - `hopefully.png` - PNG image, 3.0 MB.
-- `index.json` - JSON file, 1.5 KB.
+- `index.json` - JSON file, 1.6 KB.
 - `original.jpg` - JPEG image, 249.5 KB.
 - `thomas-honestly.png` - PNG image, 2.1 MB.
 - `thomas-sorry.png` - PNG image, 2.9 MB.

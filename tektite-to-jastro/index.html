@@ -289,6 +289,7 @@
 
   <script>
     const MOBILE_QUERY = window.matchMedia("(max-width: 768px)");
+    const SLIDESHOW_BASE_PATH = "/tektite-to-jastro/";
     const SOURCES = {
       mobile: {
         label: "Mobile 9:16",
@@ -326,7 +327,7 @@
     }
 
     function toSlideUrl(fileName) {
-      return "/" + encodeURIComponent(fileName);
+      return SLIDESHOW_BASE_PATH + encodeURIComponent(fileName);
     }
 
     function syncBrowserUrl(frame) {
@@ -409,11 +410,7 @@
 
       window.setTimeout(() => {
         index = nextIndex;
-        slide.src = assetUrl;
-        slide.alt = frame.name;
-        backdrop.style.backgroundImage = 'url("' + assetUrl + '")';
-        caption.textContent = frame.name;
-        countLabel.textContent = (index + 1) + " / " + slides.length;
+        applyFrame(frame);
 
         slideNext.classList.remove("visible");
         backdropNext.classList.remove("visible");
