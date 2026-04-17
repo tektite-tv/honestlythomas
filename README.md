@@ -14,7 +14,7 @@ This folder groups together the files and subdirectories listed below.
 
 - [.github](.github/README.md) - contains 3 file(s) beneath this folder.
 - [media](media/README.md) - contains 3 file(s) beneath this folder.
-- [scripts](scripts/README.md) - contains 2 file(s) beneath this folder.
+- [scripts](scripts/README.md) - contains 1 file(s) beneath this folder.
 
 ### Files
 
