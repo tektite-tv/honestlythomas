@@ -1,4 +1,4 @@
-# honestlythomas-main
+# honestlythomas
 
 Auto-generated directory guide for `/`.
 
