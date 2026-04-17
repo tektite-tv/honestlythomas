@@ -4,7 +4,7 @@ Auto-generated directory guide for `/`.
 
 This folder groups together the files and subdirectories listed below.
 
-- Subdirectories: 4
+- Subdirectories: 3
 - Files: 2
 - File types: 1 HTML document, 1 site configuration file
 
@@ -15,7 +15,6 @@ This folder groups together the files and subdirectories listed below.
 - [.github](.github/README.md) - contains 3 file(s) beneath this folder.
 - [media](media/README.md) - contains 3 file(s) beneath this folder.
 - [scripts](scripts/README.md) - contains 2 file(s) beneath this folder.
-- [tektite-to-jastro](tektite-to-jastro/README.md) - contains 29 file(s) beneath this folder.
 
 ### Files
 
