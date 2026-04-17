@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tektite to Jastro</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --panel-width: min(92vw, 1200px);
+      --panel-radius: 28px;
+      --shadow: 0 28px 80px rgba(0, 0, 0, 0.45);
+      --overlay: rgba(8, 10, 18, 0.52);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      background: #05070b;
+      color: #f7f5ef;
+      font-family: "Trebuchet MS", "Gill Sans", sans-serif;
+    }
+
+    body {
+      overflow: hidden;
+    }
+
+    button,
+    img {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .app {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at top, rgba(255, 185, 85, 0.18), transparent 35%),
+        linear-gradient(180deg, #10131d 0%, #05070b 100%);
+    }
+
+    .backdrop,
+    .backdrop-next {
+      position: absolute;
+      inset: -4%;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      filter: blur(32px) saturate(1.1);
+      transform: scale(1.08);
+      opacity: 0;
+      transition: opacity 280ms ease;
+    }
+
+    .backdrop.visible,
+    .backdrop-next.visible {
+      opacity: 1;
+    }
+
+    .shade {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(0, 0, 0, 0.34), rgba(0, 0, 0, 0.48)),
+        radial-gradient(circle at center, rgba(255, 255, 255, 0.08), transparent 44%);
+      pointer-events: none;
+    }
+
+    .viewer {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      display: grid;
+      place-items: center;
+      padding: 28px;
+    }
+
+    .stage {
+      position: relative;
+      width: var(--panel-width);
+      max-width: 100%;
+      aspect-ratio: 16 / 9;
+      border: 0;
+      border-radius: var(--panel-radius);
+      overflow: hidden;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.04);
+      box-shadow: var(--shadow);
+      padding: 0;
+      color: inherit;
+    }
+
+    .stage:focus-visible {
+      outline: 3px solid rgba(255, 214, 116, 0.85);
+      outline-offset: 4px;
+    }
+
+    .slide,
+    .slide-next {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 260ms ease;
+      background: rgba(0, 0, 0, 0.22);
+    }
+
+    .slide.visible,
+    .slide-next.visible {
+      opacity: 1;
+    }
+
+    .chrome {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 20px;
+      background:
+        linear-gradient(180deg, rgba(0, 0, 0, 0.42) 0%, rgba(0, 0, 0, 0.02) 30%, rgba(0, 0, 0, 0.46) 100%);
+      pointer-events: none;
+    }
+
+    .topline,
+    .bottomline {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 40px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: var(--overlay);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      font-size: 0.95rem;
+      letter-spacing: 0.02em;
+    }
+
+    .title {
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.75rem;
+      opacity: 0.82;
+    }
+
+    .count {
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .caption {
+      font-size: 1rem;
+      font-weight: 700;
+      max-width: min(62ch, 70%);
+      line-height: 1.2;
+    }
+
+    .hint {
+      opacity: 0.86;
+      white-space: nowrap;
+    }
+
+    .status {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      z-index: 3;
+      background: rgba(5, 7, 11, 0.7);
+      backdrop-filter: blur(12px);
+      text-align: center;
+    }
+
+    .status-card {
+      max-width: 520px;
+      padding: 24px 28px;
+      border-radius: 24px;
+      background: rgba(17, 22, 32, 0.92);
+      box-shadow: var(--shadow);
+    }
+
+    .status-card h1 {
+      margin: 0 0 10px;
+      font-size: clamp(1.6rem, 4vw, 2.6rem);
+      letter-spacing: 0.04em;
+    }
+
+    .status-card p {
+      margin: 0;
+      line-height: 1.55;
+      color: rgba(247, 245, 239, 0.84);
+    }
+
+    .status.hidden {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      :root {
+        --panel-width: 100vw;
+        --panel-radius: 0;
+        --shadow: none;
+        --overlay: rgba(8, 10, 18, 0.36);
+      }
+
+      .viewer {
+        padding: 0;
+      }
+
+      .stage {
+        width: 100vw;
+        height: 100vh;
+        aspect-ratio: auto;
+      }
+
+      .chrome {
+        padding: 18px 14px 24px;
+      }
+
+      .topline,
+      .bottomline {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .caption {
+        max-width: none;
+      }
+
+      .hint {
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="backdrop visible" id="backdrop"></div>
+    <div class="backdrop-next" id="backdropNext"></div>
+    <div class="shade"></div>
+
+    <main class="viewer">
+      <button class="stage" id="stage" type="button" aria-label="Advance slideshow">
+        <img class="slide visible" id="slide" alt="" />
+        <img class="slide-next" id="slideNext" alt="" />
+
+        <div class="chrome">
+          <div class="topline">
+            <div class="pill">
+              <span class="title" id="modeLabel">Loading</span>
+            </div>
+            <div class="pill count" id="countLabel">0 / 0</div>
+          </div>
+
+          <div class="bottomline">
+            <div class="pill caption" id="caption">Loading images...</div>
+            <div class="pill hint">Tap or click anywhere to advance</div>
+          </div>
+        </div>
+      </button>
+    </main>
+
+    <div class="status" id="status">
+      <div class="status-card">
+        <h1 id="statusTitle">Loading slideshow</h1>
+        <p id="statusText">Fetching image lists from the generated index files.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const MOBILE_QUERY = window.matchMedia("(max-width: 768px)");
+    const SOURCES = {
+      mobile: {
+        label: "Mobile 9:16",
+        url: "/tektite-to-jastro/images_9x16/index.json"
+      },
+      desktop: {
+        label: "Desktop 16:9",
+        url: "/tektite-to-jastro/images_16x9/index.json"
+      }
+    };
+
+    const stage = document.getElementById("stage");
+    const slide = document.getElementById("slide");
+    const slideNext = document.getElementById("slideNext");
+    const backdrop = document.getElementById("backdrop");
+    const backdropNext = document.getElementById("backdropNext");
+    const countLabel = document.getElementById("countLabel");
+    const caption = document.getElementById("caption");
+    const modeLabel = document.getElementById("modeLabel");
+    const status = document.getElementById("status");
+    const statusTitle = document.getElementById("statusTitle");
+    const statusText = document.getElementById("statusText");
+
+    let activeMode = "";
+    let slides = [];
+    let index = 0;
+    let isTransitioning = false;
+
+    function getMode() {
+      return MOBILE_QUERY.matches ? "mobile" : "desktop";
+    }
+
+    function toAssetUrl(relativePath) {
+      return "/" + relativePath.replace(/^\/+/, "");
+    }
+
+    function toSlideUrl(fileName) {
+      return "/" + encodeURIComponent(fileName);
+    }
+
+    function syncBrowserUrl(frame) {
+      const nextUrl = toSlideUrl(frame.name);
+      if (window.location.pathname !== nextUrl) {
+        window.history.replaceState({ image: frame.name }, "", nextUrl);
+      }
+    }
+
+    function preloadImage(src) {
+      return new Promise((resolve, reject) => {
+        const image = new Image();
+        image.onload = () => resolve(src);
+        image.onerror = reject;
+        image.src = src;
+      });
+    }
+
+    async function fetchSlides(mode) {
+      const response = await fetch(SOURCES[mode].url, { cache: "no-store" });
+      if (!response.ok) {
+        throw new Error("Unable to load " + SOURCES[mode].url);
+      }
+
+      const payload = await response.json();
+      return Array.isArray(payload.images) ? payload.images : [];
+    }
+
+    function updateStatus(title, text, visible) {
+      statusTitle.textContent = title;
+      statusText.textContent = text;
+      status.classList.toggle("hidden", !visible);
+    }
+
+    function applyFrame(frame) {
+      const assetUrl = toAssetUrl(frame.relativePath);
+      slide.src = assetUrl;
+      slide.alt = frame.name;
+      slide.classList.add("visible");
+      backdrop.style.backgroundImage = 'url("' + assetUrl + '")';
+      backdrop.classList.add("visible");
+      caption.textContent = frame.name;
+      countLabel.textContent = (index + 1) + " / " + slides.length;
+      modeLabel.textContent = SOURCES[activeMode].label;
+      syncBrowserUrl(frame);
+    }
+
+    async function showInitialSlide() {
+      const frame = slides[index];
+      await preloadImage(toAssetUrl(frame.relativePath));
+      applyFrame(frame);
+    }
+
+    async function advanceSlide() {
+      if (isTransitioning || slides.length < 2) {
+        return;
+      }
+
+      isTransitioning = true;
+      const nextIndex = (index + 1) % slides.length;
+      const frame = slides[nextIndex];
+      const assetUrl = toAssetUrl(frame.relativePath);
+
+      try {
+        await preloadImage(assetUrl);
+      } catch (error) {
+        console.error(error);
+        isTransitioning = false;
+        return;
+      }
+
+      slideNext.src = assetUrl;
+      slideNext.alt = frame.name;
+      backdropNext.style.backgroundImage = 'url("' + assetUrl + '")';
+
+      requestAnimationFrame(() => {
+        slideNext.classList.add("visible");
+        backdropNext.classList.add("visible");
+      });
+
+      window.setTimeout(() => {
+        index = nextIndex;
+        slide.src = assetUrl;
+        slide.alt = frame.name;
+        backdrop.style.backgroundImage = 'url("' + assetUrl + '")';
+        caption.textContent = frame.name;
+        countLabel.textContent = (index + 1) + " / " + slides.length;
+
+        slideNext.classList.remove("visible");
+        backdropNext.classList.remove("visible");
+        isTransitioning = false;
+      }, 260);
+    }
+
+    async function loadMode(mode) {
+      activeMode = mode;
+      index = 0;
+      slides = [];
+      isTransitioning = false;
+      slide.classList.remove("visible");
+      slideNext.classList.remove("visible");
+      backdrop.classList.remove("visible");
+      backdropNext.classList.remove("visible");
+      updateStatus("Loading slideshow", "Fetching image lists from the generated index files.", true);
+
+      try {
+        const loadedSlides = await fetchSlides(mode);
+        if (!loadedSlides.length) {
+          throw new Error("No images found in " + SOURCES[mode].url);
+        }
+
+        slides = loadedSlides;
+        await showInitialSlide();
+        updateStatus("Ready", "Slideshow loaded.", false);
+      } catch (error) {
+        console.error(error);
+        updateStatus(
+          "Could not load images",
+          "The slideshow could not read " + SOURCES[mode].url + ". Make sure the index file exists and is being served.",
+          true
+        );
+      }
+    }
+
+    stage.addEventListener("click", () => {
+      advanceSlide();
+    });
+
+    stage.addEventListener("keydown", (event) => {
+      if (event.key === " " || event.key === "Enter" || event.key === "ArrowRight") {
+        event.preventDefault();
+        advanceSlide();
+      }
+    });
+
+    MOBILE_QUERY.addEventListener("change", () => {
+      const nextMode = getMode();
+      if (nextMode !== activeMode) {
+        loadMode(nextMode);
+      }
+    });
+
+    loadMode(getMode());
+  </script>
+</body>
+</html>
