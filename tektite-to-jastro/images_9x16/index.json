@@ -1,0 +1,55 @@
+{
+  "folder": "images_9x16",
+  "path": "tektite-to-jastro/images_9x16",
+  "imageCount": 8,
+  "images": [
+    {
+      "name": "bracebridge-glitch_9x16.png",
+      "extension": ".png",
+      "sizeBytes": 3018865,
+      "relativePath": "tektite-to-jastro/images_9x16/bracebridge-glitch_9x16.png"
+    },
+    {
+      "name": "bracebridge-globe_9x16.png",
+      "extension": ".png",
+      "sizeBytes": 2795213,
+      "relativePath": "tektite-to-jastro/images_9x16/bracebridge-globe_9x16.png"
+    },
+    {
+      "name": "bracebridge_9x16.png",
+      "extension": ".png",
+      "sizeBytes": 3426500,
+      "relativePath": "tektite-to-jastro/images_9x16/bracebridge_9x16.png"
+    },
+    {
+      "name": "hopefully_9x16.png",
+      "extension": ".png",
+      "sizeBytes": 3110891,
+      "relativePath": "tektite-to-jastro/images_9x16/hopefully_9x16.png"
+    },
+    {
+      "name": "original_9x16.jpg",
+      "extension": ".jpg",
+      "sizeBytes": 333321,
+      "relativePath": "tektite-to-jastro/images_9x16/original_9x16.jpg"
+    },
+    {
+      "name": "thomas-honestly_9x16.png",
+      "extension": ".png",
+      "sizeBytes": 1666744,
+      "relativePath": "tektite-to-jastro/images_9x16/thomas-honestly_9x16.png"
+    },
+    {
+      "name": "thomas-sorry9x16.png",
+      "extension": ".png",
+      "sizeBytes": 2422978,
+      "relativePath": "tektite-to-jastro/images_9x16/thomas-sorry9x16.png"
+    },
+    {
+      "name": "thomas-transcends_9x16.png",
+      "extension": ".png",
+      "sizeBytes": 3098889,
+      "relativePath": "tektite-to-jastro/images_9x16/thomas-transcends_9x16.png"
+    }
+  ]
+}

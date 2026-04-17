@@ -2,11 +2,11 @@
 
 Auto-generated directory guide for `tektite-to-jastro/images_9x16`.
 
-This folder primarily stores image assets.
+This folder groups together the files and subdirectories listed below.
 
 - Subdirectories: 0
-- Files: 8
-- File types: 1 JPEG image, 7 PNG image
+- Files: 9
+- File types: 1 JPEG image, 1 JSON file, 7 PNG image
 
 ## Contents
 
@@ -16,6 +16,7 @@ This folder primarily stores image assets.
 - `bracebridge-globe_9x16.png` - PNG image, 2.7 MB.
 - `bracebridge_9x16.png` - PNG image, 3.3 MB.
 - `hopefully_9x16.png` - PNG image, 3.0 MB.
+- `index.json` - JSON file, 1.6 KB.
 - `original_9x16.jpg` - JPEG image, 325.5 KB.
 - `thomas-honestly_9x16.png` - PNG image, 1.6 MB.
 - `thomas-sorry9x16.png` - PNG image, 2.3 MB.

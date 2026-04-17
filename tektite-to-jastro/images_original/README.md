@@ -2,11 +2,11 @@
 
 Auto-generated directory guide for `tektite-to-jastro/images_original`.
 
-This folder primarily stores image assets.
+This folder groups together the files and subdirectories listed below.
 
 - Subdirectories: 0
-- Files: 8
-- File types: 1 JPEG image, 7 PNG image
+- Files: 9
+- File types: 1 JPEG image, 1 JSON file, 7 PNG image
 
 ## Contents
 
@@ -16,6 +16,7 @@ This folder primarily stores image assets.
 - `bracebridge-globe.png` - PNG image, 2.9 MB.
 - `bracebridge.png` - PNG image, 9.1 MB.
 - `hopefully.png` - PNG image, 3.0 MB.
+- `index.json` - JSON file, 1.6 KB.
 - `original.jpg` - JPEG image, 249.5 KB.
 - `thomas-honestly.png` - PNG image, 2.1 MB.
 - `thomas-sorry.png` - PNG image, 2.9 MB.
